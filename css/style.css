@@ -1,31 +1,27 @@
         :root {
-            --apple-blue: #0A84FF;
-            /* Brighter blue for dark mode */
-            --apple-purple: #5E5CE6;
-            --apple-pink: #FF375F;
-            --apple-orange: #FF9F0A;
+            --apple-blue: #007AFF;
+            --apple-purple: #5856D6;
+            --apple-pink: #FF2D92;
+            --apple-orange: #FF9500;
             --apple-green: #30D158;
             --apple-gray: #8E8E93;
-            --apple-gray-light: #48484A;
+            --apple-gray-light: #F2F2F7;
             --apple-gray-dark: #1C1C1E;
             --apple-black: #000000;
             --apple-white: #FFFFFF;
-            /* Gradient hero preserved for text accents if needed, but not buttons */
             --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 30%, #f093fb 70%, #00d4aa 100%);
+            --gradient-premium: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+            --gradient-card: linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
 
-            /* Theme overrides for Jungle */
-            --text-primary: #FFFFFF;
-            --text-secondary: #E5E5E5;
-            --bg-primary: transparent;
-            /* Transparent to see jungle */
-            --bg-secondary: transparent;
-            --glass-bg: rgba(0, 0, 0, 0.65);
-            /* Darker glass for cards */
-            --glass-border: rgba(255, 255, 255, 0.15);
+            /* Standard Theme */
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
 
-            --shadow-apple: 0 8px 30px rgba(0, 0, 0, 0.3);
-            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 40px rgba(103, 126, 234, 0.2);
+            --shadow-apple: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 40px rgba(103, 126, 234, 0.3);
             --border-radius: 24px;
             --border-radius-small: 16px;
             --transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -33,7 +29,14 @@
             --transition-spring: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Light/Dark mode toggle logic removed as Jungle is strictly Dark */
+        [data-theme="dark"] {
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --bg-primary: #000000;
+            --bg-secondary: #1d1d1f;
+            --shadow-apple: 0 8px 30px rgba(255, 255, 255, 0.08);
+            --shadow-heavy: 0 20px 60px rgba(255, 255, 255, 0.15);
+        }
 
         * {
             margin: 0;
@@ -48,8 +51,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #121212;
-            /* Fallback */
+            background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
             overflow-x: hidden;
@@ -177,72 +179,56 @@
             cursor: pointer;
         }
 
-        /* Hero Section - Parallax */
+        /* Hero Section - Apple Style */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            background: transparent;
+            background: var(--bg-primary);
             overflow: hidden;
-            /* Only hide overflow for the hero content container, body handles parallax */
         }
 
-        .parallax {
-            position: fixed;
-            /* Fixed to cover entire site */
+        .hero-background {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            padding: 0;
-            margin: 0;
-            list-style-type: none;
-            z-index: -99;
-            /* Behind everything */
-        }
-
-        .parallax .layer {
-            position: absolute;
-            width: 100%;
             height: 100%;
-            background-position: center bottom;
-            background-size: cover;
-            background-repeat: no-repeat;
-            z-index: -1;
-            will-change: transform;
+            background:
+                radial-gradient(ellipse at 25% 75%, rgba(103, 126, 234, 0.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 25%, rgba(139, 92, 246, 0.25) 0%, transparent 65%),
+                radial-gradient(ellipse at 50% 50%, rgba(240, 147, 251, 0.15) 0%, transparent 70%),
+                radial-gradient(ellipse at 10% 10%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(255, 255, 255, 0) 100%);
+            animation: float 25s ease-in-out infinite, pulse 15s ease-in-out infinite alternate;
         }
 
-        /* Forest Layers */
-        .parallax .layer:nth-of-type(1) {
-            background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/1.svg');
-            z-index: 1;
+        @keyframes pulse {
+            0% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
 
-        .parallax .layer:nth-of-type(2) {
-            background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/2.svg');
-            z-index: 2;
-        }
+        @keyframes float {
 
-        .parallax .layer:nth-of-type(3) {
-            background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/3.svg');
-            z-index: 3;
-        }
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
 
-        .parallax .layer:nth-of-type(4) {
-            background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e1433383adc1a3078c1960e4d/4.svg');
-            z-index: 4;
-        }
+            33% {
+                transform: translateY(-20px) rotate(1deg);
+            }
 
-        .parallax .layer:nth-of-type(5) {
-            background-image: url('https://raw.githubusercontent.com/misalagp/imgs/53ece8c56d462838e143383adc1a3078c1960e4d/4.svg');
-            z-index: 5;
-        }
-
-        .parallax .layer:nth-of-type(6) {
-            background-image: url('https://gist.githubusercontent.com/mondenoir/5395b6e7d9445c3a0fc82e6ece97268c/raw/bca5c0c6397e38d79b5af9e88f78f0aa7b515b94/img-1.svg');
-            z-index: 6;
+            66% {
+                transform: translateY(10px) rotate(-1deg);
+            }
         }
 
         .hero-content {
@@ -381,17 +367,18 @@
         }
 
         .btn-primary {
-            background: var(--apple-blue);
-            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
             box-shadow: var(--shadow-apple);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .btn-primary:hover {
+            background: rgba(255, 255, 255, 0.2);
             transform: translateY(-4px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4);
-            background: #0066cc;
-            /* Slightly darker on hover */
+            box-shadow: var(--shadow-apple);
+            border-color: var(--apple-blue);
         }
 
         .btn-secondary {
@@ -415,8 +402,6 @@
         .section {
             padding: 120px 0;
             position: relative;
-            background: transparent !important;
-            /* Force transparent override */
         }
 
         .section:nth-child(even) {
@@ -482,14 +467,13 @@
 
         .timeline-content {
             flex: 1;
-            background: var(--glass-bg);
-            /* Dark Glass */
+            background: var(--bg-primary);
             padding: 40px;
             border-radius: var(--border-radius);
             box-shadow: var(--shadow-apple);
             position: relative;
             transition: var(--transition-spring);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(103, 126, 234, 0.1);
             backdrop-filter: blur(20px);
             color: var(--text-primary);
         }
@@ -540,8 +524,7 @@
         }
 
         .certificate-card {
-            background: var(--glass-bg);
-            /* Dark Glass */
+            background: var(--bg-primary);
             border-radius: var(--border-radius);
             padding: 40px;
             box-shadow: var(--shadow-apple);
@@ -550,7 +533,7 @@
             overflow: hidden;
             opacity: 0;
             transform: translateY(50px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(103, 126, 234, 0.1);
             backdrop-filter: blur(20px);
             color: var(--text-primary);
         }
