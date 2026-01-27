@@ -113,11 +113,10 @@ if (hero && greeting) {
         const rect = greeting.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
+        // Sensitivity factor - increased for better effect since text is larger
+        const factor = 0.2;
 
-        // Sensitivity factor - lower is more subtle, higher is more extreme
-        const factor = 0.1;
-
-        greeting.style.transform = `perspective(500px) rotateX(${-y * factor}deg) rotateY(${x * factor}deg) scale(1.05)`;
+        greeting.style.transform = `perspective(1000px) rotateX(${-y * factor}deg) rotateY(${x * factor}deg) scale(1.05)`;
     });
 
     hero.addEventListener('mouseleave', () => {
