@@ -96,8 +96,6 @@ const layers = document.querySelectorAll('.parallax .layer');
 
 function parallax() {
     const y = window.scrollY;
-    // Only run if we are near the top to save performance
-    if (y > window.innerHeight) return;
 
     for (let i = 0; i < layers.length; i++) {
         // Determine speed: closer layers (higher index) move faster or differently
@@ -106,7 +104,8 @@ function parallax() {
         // We want back layers to move slower, front layers faster.
         // i=0 is layer 1 (back), i=5 is layer 6 (front)
 
-        const speed = (i + 1) * 0.15;
+        // Reduced speed factor for global scrolling so it doesn't fly away
+        const speed = (i + 1) * 0.05;
         layers[i].style.transform = `translateY(${y * speed}px)`;
     }
 }
