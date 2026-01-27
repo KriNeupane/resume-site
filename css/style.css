@@ -250,7 +250,7 @@
             margin-bottom: 40px;
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 1s ease 0.2s forwards;
+            animation: fadeInUp 3s ease 0.2s forwards;
             line-height: 1.2;
             cursor: default;
         }
