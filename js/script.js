@@ -91,15 +91,27 @@ document.querySelectorAll('.fade-in-up, .timeline-item, .certificate-card').forE
     observer.observe(el);
 });
 
-// Parallax effect for hero background
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const heroBackground = document.querySelector('.hero-background');
+// Parallax Forests Effect
+const layers = document.querySelectorAll('.parallax .layer');
 
-    if (heroBackground) {
-        heroBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+function parallax() {
+    const y = window.scrollY;
+    // Only run if we are near the top to save performance
+    if (y > window.innerHeight) return;
+
+    for (let i = 0; i < layers.length; i++) {
+        // Determine speed: closer layers (higher index) move faster or differently
+        // Original snippet: layers[layers.length-i].style.transform = ...
+        // Let's adjust for our layer order (1 is back, 6 is front)
+        // We want back layers to move slower, front layers faster.
+        // i=0 is layer 1 (back), i=5 is layer 6 (front)
+
+        const speed = (i + 1) * 0.15;
+        layers[i].style.transform = `translateY(${y * speed}px)`;
     }
-});
+}
+
+window.addEventListener('scroll', parallax, { passive: true });
 
 // 3D Tilt Effect for Greeting
 const hero = document.getElementById('hero');
